@@ -1,7 +1,5 @@
 function Cells(w, h, tSize){
-    var DEAD = 0;
-    var ALIVE = 1;
-    var ENEMY = -1;
+
 
     var cellsAlive = [];
 
@@ -9,7 +7,6 @@ function Cells(w, h, tSize){
     var height = h;
     var teamSize = tSize;
 
-    var generator = Generator(width,height,teamSize);
 
     function inBounds(pos) {
         return ((pos > 0) && (pos < (width*height)));
@@ -89,7 +86,7 @@ function Cells(w, h, tSize){
             var cellsDead = _.concat(Object.keys(cellFrequency), Object.keys(cellsAlive));
             _.filter(cellsDead, function (c){
                 return (nextGenAlive[c] !== undefined);
-            })
+            });
 
             cellsAlive = nextGenAlive;
 
@@ -99,16 +96,41 @@ function Cells(w, h, tSize){
             }
         },
 
-        genEnemyCells: function(){
-            cellsAlive = generator.genEnemyCells(cellsAlive);
+
+        loadFriendlyConfig: function(positions){
+            for (var i=0;i<teamSize*teamSize;i++){
+                var row = Math.floor(i/teamSize);
+                var index = (row*width) + i % teamSize + friendlyStartPos;
+
+                if (positions[i]){
+                    cellsAlive[index] = 1;
+                } else {
+                    delete cellsAlive[index];
+                }
+            }
         },
 
-        genFriendlyCells: function (){
-            cellsAlive = generator.genFriendlyCells(cellsAlive);
+        loadEnemyConfig: function (positions){
+            for (var i=0;i<teamSize*teamSize;i++){
+                var row = Math.floor(i/teamSize);
+                var index = (row*width) + i % teamSize + enemyStartPos;
+
+                if (positions[i]){
+                    cellsAlive[index] = -1;
+                } else {
+                    delete cellsAlive[index];
+                }
+            }
         },
 
-        setGeneratorDensity: function(d){
-            generator.setDensity(d)
+        loadPatterns: function(friend, enemy){
+            this.reset();
+            this.loadFriendlyConfig(friend);
+            this.loadEnemyConfig(enemy)
+        },
+
+        reset: function (){
+            cellsAlive = {};
         }
     }
 }

@@ -3,79 +3,94 @@ var width = 80;
 var height = 48;
 var teamSize = 16;
 
+var enemyStartPos = (teamSize)* width + (width - teamSize*2);
+var friendlyStartPos = (teamSize)* width + (teamSize);
+
 var gameTicker;
-
-
-function getPosition(event) {
-    var x = new Number();
-    var y = new Number();
-    var canvas = document.getElementById("canvas");
-
-    if (event.x != undefined && event.y != undefined)
-    {
-        x = event.x;
-        y = event.y;
-    }
-    else // Firefox method to get the position
-    {
-        x = event.clientX + document.body.scrollLeft +
-            document.documentElement.scrollLeft;
-        y = event.clientY + document.body.scrollTop +
-            document.documentElement.scrollTop;
-    }
-
-    x -= canvas.offsetLeft;
-    y -= canvas.offsetTop;
-
-    return {
-        x: x,
-        y: y
-    }
-}
+var editor = Editor();
 
 window.onload = function(){
     game = Game(width,height);
     gui = Gui(width,height);
     gui.draw(game.getCells());
-
-    var canvas = document.getElementById('gameCanvas');
-    var ctx = canvas.getContext('2d');
-
-
+    gui.genRemaining(game.generationsRemaining());
+    var canvas = document.getElementById('editTeamCanvas');
     canvas.addEventListener('click', function(e){
-        var pos = getPosition(e);
+        var pos = {
+            x:(e.offsetX),
+            y:(e.offsetY)
+        };
+        editor.trigger(pos);
+        gui.editConfigScreen(editor.getConfig());
     });
 };
 
-var p1Config = [];
-var p2Config = [];
 
 function editGame(){
-    gui.editMode();
+    if (gameTicker) return;
+    editor.init(game.getFriendConfig());
+    gui.toggleEditMode();
+    gui.editConfigScreen(editor.getConfig());
+
 }
 function playGame(){
+    if (gameTicker) return;
+    game.setGenerations(document.getElementById("genRemainingText").value);
     gameTicker = window.setInterval(function(){
-        game.tick();
+        var gameOver = game.tick();
+        if (gameOver){
+            var score = game.getScore();
+            var scoreString = "";
+            if (score === 0){
+                scoreString = "Game is a draw!";
+            } else if (score > 0){
+                scoreString = "You are a winner! your score was: "+ score;
+            } else {
+                scoreString = "Oh dear, you lost! your score was: "+ score;
+            }
+            alert(scoreString);
+            game.reset();
+            window.clearInterval(gameTicker);
+            gameTicker = undefined;
+        }
+
+        gui.genRemaining(game.generationsRemaining());
         gui.draw(game.getCells());
-    },55);
+    },30);
 }
+
 function resetGame(){
     window.clearInterval(gameTicker);
+    gameTicker = undefined;
     game.reset();
-    game.setDensity(.2);
+    gui.genRemaining(game.generationsRemaining());
     gui.draw(game.getCells());
 
 }
-
-
-
 
 function generateFriendlies(){
+    if (gameTicker) return;
     game.generateFriendlies();
+    editor.init(game.getFriendConfig());
     gui.draw(game.getCells());
 }
 
-function tickGame(){
-    game.tick();
+function saveConfig(){
+    gui.toggleEditMode();
+    //load current configuration into game cells and then draw canvas
+    game.loadFriendlyConfig(editor.getConfig());
     gui.draw(game.getCells());
+    game.setFriendlyConfig(editor.getConfig());
+}
+
+function clearConfig(){
+    editor.clearConfig();
+    gui.editConfigScreen(editor.getConfig());
+}
+
+function changeOpponent(){
+    var opponent = document.getElementById("opponentOption");
+    var val =  opponent.value;
+    game.setEnemyConfig(val);
+    resetGame();
 }

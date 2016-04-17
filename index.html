@@ -7,14 +7,18 @@
     <script src="js/libs/lodash.min.js"></script>
     <script src="js/cells.js"></script>
     <script src="js/generator.js"></script>
+    <script src="js/configurations.js"></script>
+
     <script src="js/game.js"></script>
+
+    <script src="js/editor.js"></script>
     <script src="js/gui.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body>
 
 
-<h1> Game of Death</h1>
+<h1>Conway's Game of Death</h1>
 <br>
 <div id="centreContainer">
     <br>
@@ -22,15 +26,37 @@
         <canvas id="editTeamCanvas"  style="display:none" width="320" height="320"></canvas>
         <canvas id = "gameCanvas" width="640" height="360"></canvas>
     </div>
-
     <br>
-    <hr>
     <br>
     <div id="optionsPanel">
         <button id="editButton" onclick="editGame()">edit</button>
         <button id="generate" onclick="generateFriendlies()">generate</button>
         <button id="play" onclick="playGame()">play</button>
         <button id="reset" onclick="resetGame()">reset</button>
+        <br>
+        <br>
+
+        <div class="optionGroup">
+        <span>Chose your opponent:</span>
+        <select id="opponentOption" onchange="changeOpponent()" >
+            <option value="sun">Sun</option>
+            <option value="ships">Ships</option>
+            <option value="virus">Virus</option>
+            <option value="line">Line</option>
+            <option value="harmless">Harmless</option>
+            <option value="frog">Frog</option>
+            <option value="queen">Queen Bee</option>
+            <option value="random" selected>Random</option>
+        </select>
+        </div>
+        <br>
+        <span>Generations Remaining: </span><input id="genRemainingText" type="number">
+
+
+    </div>
+    <div id="editPanel" style="display:none">
+        <button id="saveConfig" onclick="saveConfig()">save configuration</button>
+        <button id="clearButton" onclick="clearConfig()">clear</button>
     </div>
 
 </div>

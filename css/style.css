@@ -9,12 +9,35 @@
     background-color:snow;
 }
 
+body{
+    font-family: 'Trocchi', serif; font-size: 15px; font-weight: normal;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
 #gameContainer{
     height:380px;
 }
 
 body{
     background-color:#876;
+    text-align: center;
+    color: #333333;
+    font-family: Century Gothic, sans-serif;
+
+}
+
+#genRemainingText{
+    width:60px;
     text-align: center;
 }
 
@@ -26,9 +49,14 @@ h1 { color: cornsilk; font-family: 'Trocchi', serif; font-size: 45px; font-weigh
     margin-left: auto;
     margin-right: auto;
     display: block;
-    background-color:#889;
+    background-color:darkslategrey;
     width:800px;
-    height:800px;
+    height:680px;
+}
+
+span{
+    color:cornsilk;
+
 }
 
 button{
