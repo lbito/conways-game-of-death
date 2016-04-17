@@ -105,6 +105,10 @@ function Cells(w, h, tSize){
 
         genFriendlyCells: function (){
             cellsAlive = generator.genFriendlyCells(cellsAlive);
+        },
+
+        setGeneratorDensity: function(d){
+            generator.setDensity(d)
         }
     }
 }

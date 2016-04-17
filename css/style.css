@@ -1,4 +1,4 @@
-#gameCanvas{
+#gameCanvas,#editTeamCanvas{
     margin-top:20px;
     border:2px solid dimgray;
     padding-left: 0;
@@ -7,6 +7,10 @@
     margin-right: auto;
     display: block;
     background-color:snow;
+}
+
+#gameContainer{
+    height:380px;
 }
 
 body{

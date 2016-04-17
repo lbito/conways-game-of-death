@@ -8,18 +8,15 @@ function Generator(w,h,tSize){
 
     //0 to 1
     var density = 0.6;
-
-
+    
     return {
-
-
         genEnemyCells: function(cells){
             for (var i=0; i < teamSize;i++){
                 for (var j = enemyStartPos; j< enemyStartPos + teamSize;j++){
                     var nPos = j + (width*i);
                     delete cells[nPos];
                     var rnd = Math.floor(Math.random() * 10) + 1;
-                    if (rnd < density*10){
+                    if (rnd <= density*10){
                         cells[nPos] = -1;
                     }
                 }
@@ -40,6 +37,10 @@ function Generator(w,h,tSize){
             }
             return cells;
         },
+
+        setDensity: function(d){
+            density = d;
+        }
     }
     
 }

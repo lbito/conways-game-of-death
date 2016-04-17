@@ -18,8 +18,14 @@
 <br>
 <div id="centreContainer">
     <br>
-    <canvas id = "gameCanvas" width="640" height="360"></canvas>
+    <div id="gameContainer">
+        <canvas id="editTeamCanvas"  style="display:none" width="320" height="320"></canvas>
+        <canvas id = "gameCanvas" width="640" height="360"></canvas>
+    </div>
+
+    <br>
     <hr>
+    <br>
     <div id="optionsPanel">
         <button id="editButton" onclick="editGame()">edit</button>
         <button id="generate" onclick="generateFriendlies()">generate</button>

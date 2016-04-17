@@ -1,8 +1,14 @@
 function Gui(w, h){
+
+    var editMode = false;
+
     var width = w;
     var height = h;
     var gameCanvas = document.getElementById("gameCanvas");
     var ctx = gameCanvas.getContext("2d");
+
+    var editTeamCanvas = document.getElementById("editTeamCanvas");
+    var ectx = editTeamCanvas.getContext("2d");
 
     //size of each cell in pixels
     var pieceSize = 8;
@@ -41,6 +47,33 @@ function Gui(w, h){
             for (i=0;i<width;i++){
                 ctx.fillRect(i*pieceSize,0, 1,height*pieceSize);
             }
+        },
+
+        editMode: function(){
+            if (editMode){
+                //return to normal view
+                gameCanvas.style.display="block";
+                editTeamCanvas.style.display="none";
+            } else {
+                gameCanvas.style.display ="none";
+                editTeamCanvas.style.display="block";
+
+                var sqSize=  editTeamCanvas.width/teamSize;
+
+                ectx.fillStyle= "white";
+                ectx.fillRect(0, 0, editTeamCanvas.width, editTeamCanvas.height);
+                ectx.fillStyle = "silver";
+                var i;
+                for(i=0;i<teamSize;i++){
+                    ectx.fillRect(0,i*sqSize,editTeamCanvas.width*pieceSize,1);
+                }
+
+                for (i=0;i<teamSize;i++){
+                    ectx.fillRect(i*sqSize,0, 1,editTeamCanvas.height*pieceSize);
+                }
+            }
+            editMode = !editMode;
+
         }
     }
 }

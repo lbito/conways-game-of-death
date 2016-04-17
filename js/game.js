@@ -3,13 +3,15 @@ function Game(w, h){
     var height = h;
     var teamSize = 16;
 
+    var density = 0.8;
+
     var options = {
 
     }
 
     var cells = Cells(width,height, teamSize);
-    cells.genEnemyCells();
-    cells.genFriendlyCells();
+    cells.genEnemyCells(density);
+    cells.genFriendlyCells(density);
 
 
     return {
@@ -25,11 +27,15 @@ function Game(w, h){
 
         generateFriendlies: function(){
             game.reset();
-            cells.genFriendlyCells();
+            cells.genFriendlyCells(density);
         },
 
         reset: function(){
 
+        },
+
+        setDensity: function(d){
+            cells.setGeneratorDensity(d)
         }
     }
 }
