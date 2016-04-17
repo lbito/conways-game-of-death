@@ -12,7 +12,22 @@
     <script src="js/main.js"></script>
 </head>
 <body>
-<canvas id = "gameCanvas" width="640" height="360"></canvas>
-<button onclick="tickGame()">tick</button>
+
+
+<h1> Game of Death</h1>
+<br>
+<div id="centreContainer">
+    <br>
+    <canvas id = "gameCanvas" width="640" height="360"></canvas>
+    <hr>
+    <div id="optionsPanel">
+        <button id="editButton" onclick="editGame()">edit</button>
+        <button id="generate" onclick="generateFriendlies()">generate</button>
+        <button id="play" onclick="playGame()">play</button>
+        <button id="reset" onclick="resetGame()">reset</button>
+    </div>
+
+</div>
+
 </body>
 </html>

@@ -18,8 +18,8 @@ function Gui(w, h){
 
     return {
         draw: function (cells){
-            //draw cells
             ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            this.drawGrid();
             var that = this;
             _.each(Object.keys(cells), function (c){
                 that.drawCell(c, cells[c]);
@@ -28,7 +28,19 @@ function Gui(w, h){
         drawCell: function(pos, val){
             var nPos = indexToPos(pos);
             ctx.fillStyle = (val === 1)? "darkblue": "firebrick";
-            ctx.fillRect(nPos.x*pieceSize, nPos.y*pieceSize, pieceSize, pieceSize);
+            ctx.fillRect(nPos.x*pieceSize+1, nPos.y*pieceSize+1, pieceSize-2, pieceSize-2);
+        },
+
+        drawGrid: function(){
+            ctx.fillStyle = "silver";
+            var i;
+            for(i=0;i<height;i++){
+                ctx.fillRect(0,i*pieceSize,width*pieceSize,1);
+            }
+
+            for (i=0;i<width;i++){
+                ctx.fillRect(i*pieceSize,0, 1,height*pieceSize);
+            }
         }
     }
 }

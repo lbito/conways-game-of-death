@@ -1,11 +1,13 @@
 function Game(w, h){
     var width = w;
     var height = h;
-
     var teamSize = 16;
 
-    var cells = Cells(width,height, teamSize);
+    var options = {
 
+    }
+
+    var cells = Cells(width,height, teamSize);
     cells.genEnemyCells();
     cells.genFriendlyCells();
 
@@ -16,6 +18,18 @@ function Game(w, h){
         },
         tick: function(){
             cells.nextGeneration();
+        },
+        reset: function(){
+            game.reset();
+        },
+
+        generateFriendlies: function(){
+            game.reset();
+            cells.genFriendlyCells();
+        },
+
+        reset: function(){
+
         }
     }
 }

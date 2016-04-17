@@ -9,11 +9,6 @@ function Cells(w, h, tSize){
     var height = h;
     var teamSize = tSize;
 
-    cellsAlive[149] = 1;
-    cellsAlive[150] = 1;
-    cellsAlive[151] = 1;
-
-
     var generator = Generator(width,height,teamSize);
 
     function inBounds(pos) {
@@ -91,8 +86,17 @@ function Cells(w, h, tSize){
                     nextGenAlive[p] = nxtState;
                 }
             });
+            var cellsDead = _.concat(Object.keys(cellFrequency), Object.keys(cellsAlive));
+            _.filter(cellsDead, function (c){
+                return (nextGenAlive[c] !== undefined);
+            })
 
             cellsAlive = nextGenAlive;
+
+            return {
+                new: cellsAlive,
+                old: cellsDead
+            }
         },
 
         genEnemyCells: function(){
