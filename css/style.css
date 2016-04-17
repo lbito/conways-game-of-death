@@ -11,15 +11,18 @@
 
 body{
     font-family: 'Trocchi', serif; font-size: 15px; font-weight: normal;
+    color:white;
 }
 
+
+
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #44344F;
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
-    text-decoration: none;
+
     display: inline-block;
     font-size: 16px;
 }
@@ -29,7 +32,7 @@ button {
 }
 
 body{
-    background-color:#876;
+    background-color:#8984BC;
     text-align: center;
     color: #333333;
     font-family: Century Gothic, sans-serif;
@@ -41,17 +44,24 @@ body{
     text-align: center;
 }
 
-h1 { color: cornsilk; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
+#gameOverMessage{
+    font-style:italic;
+    font-size:21px;
+}
+
+h1 { color: white; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
 
 #centreContainer{
+    padding-top:40px;
     padding-left: 0;
     padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
     display: block;
-    background-color:darkslategrey;
+    background-color:#564D80;
     width:800px;
-    height:680px;
+    height:700px;
+    margin: auto;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 
 span{

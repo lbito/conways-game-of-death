@@ -35,6 +35,7 @@ function editGame(){
 }
 function playGame(){
     if (gameTicker) return;
+    document.getElementById("gameOverMessage").innerHTML = "";
     game.setGenerations(document.getElementById("genRemainingText").value);
     gameTicker = window.setInterval(function(){
         var gameOver = game.tick();
@@ -44,22 +45,24 @@ function playGame(){
             if (score === 0){
                 scoreString = "Game is a draw!";
             } else if (score > 0){
-                scoreString = "You are a winner! your score was: "+ score;
+                scoreString = "You Win! your score was: "+ score;
             } else {
                 scoreString = "Oh dear, you lost! your score was: "+ score;
             }
-            alert(scoreString);
+            document.getElementById("gameOverMessage").innerHTML = scoreString;
             game.reset();
+            gui.genRemaining(game.generationsRemaining());
             window.clearInterval(gameTicker);
             gameTicker = undefined;
+            return;
         }
-
         gui.genRemaining(game.generationsRemaining());
         gui.draw(game.getCells());
     },30);
 }
 
 function resetGame(){
+    document.getElementById("gameOverMessage").innerHTML = "";
     window.clearInterval(gameTicker);
     gameTicker = undefined;
     game.reset();
